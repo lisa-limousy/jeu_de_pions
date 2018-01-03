@@ -1,66 +1,9 @@
-//first commit lisa
 #include <stdio.h>
 #include <stdlib.h>
 #include <ctype.h>
 #include <string.h>
 
-#define LONG 12
-#define LARG 18
-
-/* l’origine est en haut a gauche */
-#define ROUGE ’R’ //identifiant du premier joueur
-#define BLEU ’B’ //identifiant du deuxi`eme joueur
-
-/* les genres d’unites */
-#define SERF ’s’
-#define GUERRIER ’g’
-
-typedef struct unite{
-    int posX, posY; /*pour stocker les coordonn´ees de l’unit´e*/
-    char couleur; /* ROUGE ou BLEU */
-    char genre; /* GUERRIER ou SERF*/
-    struct unite *suiv; /* liste des unit´es suivantes*/
-} Unite;
-
-typedef Unite* UListe;
-
-typedef struct monde{
-    Unite *plateau[LONG][LARG];
-    int tour; /* Numero du tour */
-    UListe rouge, bleu; /*Listes des deux joueurs*/
-} Monde;
-
-//mettre la valeur de tous ses pointeurs et des cases du plateau à NULL
-void initializerMonde(Monde *monde){
-    monde->tour = 0;
-    monde->plateau[LONG][LARG] = NULL;
-    //plateau[LONG][LARG] = {0};
-    monde->rouge = NULL;
-    monde->bleu = NULL;
-}
-
-int afficherPlateau(Monde monde){
-	int i, j;
-	for (i = 0; i < LONG; i++){
-        for(i=0; i<=LONG; i++){
-        	printf("+---");
-    	}
-    	printf("+\n");
-        for (j = 0; j < LARG; j++){
-            printf("| %c ", monde.plateau[LONG][LARG]);
-        }
-        printf("|\n");
-	}
-	for(i=0; i<=LONG; i++){
-        printf("+---");
-    }
-    printf("+\n");
-}
-
-//type GUERRIER ou SERF
-int creerUnite(char type, UListe *unite){
-
-}
+#include "init.h"
 
 int main(){
     Monde monde;
