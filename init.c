@@ -23,13 +23,13 @@ int creerUnite(char type, UListe *unite){
 int afficherPlateau(Monde monde){
 
     //Afficher les cases du monde
-    int i, j;
+    int i, j, n, a;
 	int g=0;
 	printf("   1    2    3    4    5    6    7    8    9   10   11   12\n");
     for (i = 0; i < LARG; i++){
-        int i, j;
+        //int i, j;
 		g++;
-    	for(i=0; i< LONG; i++){
+    	for(n=0; n< LONG; n++){
         	printf("+----");
     	}
     	printf("+\n");
@@ -38,7 +38,7 @@ int afficherPlateau(Monde monde){
         }
        	printf("| %d \n", g);
 	}
-    for(i=0; i< LONG; i++){
+    for(a=0; a< LONG; a++){
         printf("+----");
     }
     printf("+\n");
