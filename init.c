@@ -9,26 +9,52 @@
 void initializerMonde(Monde *monde){
     monde->tour = 0;
     monde->plateau[LONG][LARG] = NULL;
-    //plateau[LONG][LARG] = {0};
     monde->rouge = NULL;
     monde->bleu = NULL;
 
 }
 
 //type = GUERRIER ou SERF
-int creerUnite(char type, UListe *unite){
+/*int creerUnite(char type, UListe *unite){
     (*unite)->genre = type; /* GUERRIER ou SERF*/
-    unite = *(&unite);
+    //unite = *(&unite);
 	//printf("%c\n", (*unite)->genre);
-}
+//}
+
 
 int placerAuMonde(Unite *unite, Monde *monde, int posX, int posY, char couleur){
 	unite->posX = posX;
 	unite->posY = posY;
 	unite->couleur = couleur;
+	
+	monde->plateau[posX][posY] = unite;
 }
 
-int afficherPlateau(Monde monde){
+void ligne(){
+	int i;
+    for(i=0; i<=LONG; i++)
+    {
+        printf("+---");
+    }
+    printf("+\n");
+}
+
+void afficherPlateau(Monde monde){
+    int i, j;
+	int g=0;
+	printf("  1   2   3   4   5   6   7   8   9  10  11  12\n");
+	for (i = 0; i <= LARG; i++){
+        g++;
+		ligne();
+        for (j = 0; j <= LONG; j++){
+            printf("| %s ", monde.plateau[i][j]);
+        }
+        printf("| %d \n", g);
+	}
+	ligne();
+}
+
+/*int afficherPlateau(Monde monde){
     int i, j, k, l;
 	int g=0;
 	printf("   1    2    3    4    5    6    7    8    9   10   11   12\n");
@@ -48,4 +74,4 @@ int afficherPlateau(Monde monde){
         printf("+----");
     }
     printf("+\n");
-}
+}*/

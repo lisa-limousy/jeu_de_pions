@@ -1,8 +1,3 @@
-CC=gcc
-CFLAGS=-W -Wall -ansi -pedantic
-LDFLAGS=
-EXEC=hello
-
 all: compil
 
 compil: init.o main.o
