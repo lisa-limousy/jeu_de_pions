@@ -24,19 +24,22 @@ int afficherPlateau(Monde monde){
 
     //Afficher les cases du monde
     int i, j;
+	int g=0;
+	printf("   1    2    3    4    5    6    7    8    9   10   11   12\n");
     for (i = 0; i < LARG; i++){
         int i, j;
-    for(i=0; i< LARG; i++){
-        printf("+---");
-    }
-    printf("+\n");
-        for (j = 0; j < LONG; j++){
-            printf("| %c ", monde.plateau[LONG][LARG]);
+		g++;
+    	for(i=0; i< LONG; i++){
+        	printf("+----");
+    	}
+    	printf("+\n");
+        for (j = 1; j <= LONG; j++){
+            printf("|  %c ", monde.plateau[LONG][LARG]);
         }
-        printf("|\n");
+       	printf("| %d \n", g);
 	}
     for(i=0; i< LONG; i++){
-        printf("+---");
+        printf("+----");
     }
     printf("+\n");
 }
