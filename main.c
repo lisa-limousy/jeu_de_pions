@@ -6,9 +6,29 @@
 #include "init.h"
 
 int main(){
-    Monde monde;
+   
+	UListe *toutesU = NULL;
+	
+	Monde monde;
+	Unite unite;
     initializerMonde(&monde);
+	
+	//création de tous les pions - 2 GUERRIER et 4 SERF
+	creerUnite(GUERRIER, toutesU);
+	creerUnite(SERF, toutesU);
+	
+	placerAuMonde(&unite, &monde, 8, 7, ROUGE);
+	
+	
     afficherPlateau(monde);
+	
+	//Placement d'une unité
+	/*printf("Joueur Rouge, rentrez vos unités !\n");
+	printf("Colonne (entre 1 et 12) de votre guerrier : ");
+	scanf("%d", posX);
+	printf("Ligne (entre 1 et 18) de votre guerrier : ");
+	scanf("%d", posY);*/
+	
     return 0;
 }
 

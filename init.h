@@ -10,8 +10,8 @@
     #define BLEU ’B’ //identifiant du deuxi`eme joueur
 
     /* les genres d’unites */
-    #define SERF ’s’
-    #define GUERRIER ’g’
+    #define SERF 's'
+    #define GUERRIER 'g'
 
     typedef struct unite{
         int posX, posY; /*pour stocker les coordonn´ees de l’unit´e*/

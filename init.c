@@ -15,30 +15,36 @@ void initializerMonde(Monde *monde){
 
 }
 
-//type GUERRIER ou SERF
+//type = GUERRIER ou SERF
 int creerUnite(char type, UListe *unite){
+    (*unite)->genre = type; /* GUERRIER ou SERF*/
+    unite = *(&unite);
+	//printf("%c\n", (*unite)->genre);
+}
 
+int placerAuMonde(Unite *unite, Monde *monde, int posX, int posY, char couleur){
+	unite->posX = posX;
+	unite->posY = posY;
+	unite->couleur = couleur;
 }
 
 int afficherPlateau(Monde monde){
-
-    //Afficher les cases du monde
-    int i, j, n, a;
+    int i, j, k, l;
 	int g=0;
 	printf("   1    2    3    4    5    6    7    8    9   10   11   12\n");
     for (i = 0; i < LARG; i++){
         //int i, j;
 		g++;
-    	for(n=0; n< LONG; n++){
+    	for(j=0; j< LONG; j++){
         	printf("+----");
     	}
     	printf("+\n");
-        for (j = 1; j <= LONG; j++){
+        for (k = 1; k <= LONG; k++){
             printf("|  %c ", monde.plateau[LONG][LARG]);
         }
        	printf("| %d \n", g);
 	}
-    for(a=0; a< LONG; a++){
+    for(l=0; l< LONG; l++){
         printf("+----");
     }
     printf("+\n");
