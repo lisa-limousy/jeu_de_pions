@@ -1,12 +1,15 @@
-all: compil
+all: game
 
-compil: init.o main.o
-	gcc main.o init.o -o game -lm
+game: init.o main.o
+	gcc $^ -o $@ -lm
 	
 %.o: %.c
-	gcc -o $@ -c - Wall -ansi $<
-
+	gcc -o $@ -c -Wall $<
 	@echo Compilation finie
 
 clean:
-	rm -r *.o
+	rm -rf *.o
+
+mrproper: clean all
+
+re: mrproper
