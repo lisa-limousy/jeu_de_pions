@@ -20,7 +20,10 @@ int main(void){
 	placerAuMonde(&unite, &monde, 8, 7, ROUGE);
 	afficherPlateau(monde);
 	
-	printf("%d\n", monde.plateau[LONG][LARG]);
+    // Marchera pas : ça dépasse des bords du tableau
+    // Par contre, LONG-1 et LARG-1 c'est OK :)
+	// printf("%d\n", monde.plateau[LONG][LARG]);
+
 	printf("%c", unite.couleur);
 	
 	//Placement d'une unité

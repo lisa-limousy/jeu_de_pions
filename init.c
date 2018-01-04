@@ -15,8 +15,8 @@ void initializerMonde(Monde *monde){
 }
 
 //type = GUERRIER ou SERF
-/*int creerUnite(char type, UListe *unite){
-    (*unite)->genre = type; /* GUERRIER ou SERF*/
+// int creerUnite(char type, UListe *unite){
+    //(*unite)->genre = type; // GUERRIER ou SERF
     //unite = *(&unite);
 	//printf("%c\n", (*unite)->genre);
 //}
@@ -28,6 +28,7 @@ int placerAuMonde(Unite *unite, Monde *monde, int posX, int posY, char couleur){
 	unite->couleur = couleur;
 	
 	monde->plateau[posX][posY] = unite;
+    return 1; // Elle doit renvoyer quoi cette fonction ?
 }
 
 void ligne(){
@@ -47,7 +48,12 @@ void afficherPlateau(Monde monde){
         g++;
 		ligne();
         for (j = 0; j <= LONG; j++){
-            printf("| %s ", monde.plateau[i][j]);
+            const Unite* u = monde.plateau[i][j];
+            if(u) {
+                printf("| %c%c ", u->couleur, u->genre);
+            } else {
+                printf("| ** "); // u est NULL (case vide)
+            }
         }
         printf("| %d \n", g);
 	}
