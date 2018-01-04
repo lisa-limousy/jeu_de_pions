@@ -1,11 +1,11 @@
 all: game
 
 game: init.o main.o
-	gcc $^ -o $@ -lm
+	gcc -g $^ -o $@ -lm
 	@echo Compilation finie
 	
 %.o: %.c
-	gcc -o $@ -c -Wall $<
+	gcc -g -o $@ -c -Wall $<
 
 clean:
 	rm -rf *.o
