@@ -32,18 +32,9 @@ typedef struct monde{
 
 /* prototypes de mes fonctions */
 void initializerMonde(Monde *monde);
-<<<<<<< HEAD
 void creerUnite(char type, UListe *unite);
 int placerAuMonde(Unite *unite, Monde * monde, int posX, int posY, char couleur);
 void ligne();
 void afficherPlateau(Monde monde);
-=======
-//int creerUnite(char type, UListe *unite);
-int placerAuMonde(Unite *unite, Monde * monde, int posX, int posY, char couleur);
-void ligne();
-void afficherPlateau(Monde monde);
-//void deplacerUnite(Unite *unite, Monde *monde, int destX, int destY);
-//void enleverUnite(Unite *unite, Monde *monde, int posX, int posY);
->>>>>>> 2e08efea4bda87c4a5346775498c1842357c82e2
 
 #endif
