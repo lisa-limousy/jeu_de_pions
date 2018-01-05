@@ -33,6 +33,7 @@ int main(void){
 	//printf("%d", unite->genre);
 	afficherPlateau(monde);
 	
+<<<<<<< HEAD
 	/*Unite* cur;
 	while(cur!=NULL){
 		printf("ok");
@@ -44,13 +45,19 @@ int main(void){
 		printf("ok ");
 	}*/
 	
+=======
+>>>>>>> 2e08efea4bda87c4a5346775498c1842357c82e2
     // Marchera pas : ça dépasse des bords du tableau
     // Par contre, LONG-1 et LARG-1 c'est OK :)
 	// printf("%d\n", monde.plateau[LONG][LARG]);
 
+<<<<<<< HEAD
 	//printf("%c", unite.genre);
 	
 	//2 guerrier et 4 serfs 
+=======
+	printf("%c", unite.couleur);
+>>>>>>> 2e08efea4bda87c4a5346775498c1842357c82e2
 	
 	//Placement d'une unité
 	/*printf("Joueur Rouge, rentrez vos unités !\n");
