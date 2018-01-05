@@ -7,21 +7,50 @@
 
 int main(void){
    
-	UListe *toutesU = NULL;
+	//UListe *toutesU = NULL;
 	
 	Monde monde;
-	Unite unite;
+	UListe liste = NULL;
+	
     initializerMonde(&monde);
 	
 	//création de tous les pions - 2 GUERRIER et 4 SERF
-	//creerUnite(GUERRIER, toutesU);
-	//creerUnite(SERF, toutesU);
 	
-	placerAuMonde(&unite, &monde, 8, 7, ROUGE);
+	creerUnite(SERF, &liste);
+	placerAuMonde(liste, &monde, 8, 7, BLEU);
+	creerUnite(SERF, &liste);
+	placerAuMonde(liste, &monde, 1, 1, ROUGE);
+	creerUnite(GUERRIER, &liste);
+	placerAuMonde(liste, &monde, 2, 1, ROUGE);
+	
+	//boucle pour tester le chainage qui fonctionne à l'envers
+	/*while(liste!=NULL){
+        printf("%c", liste->genre);
+        liste = liste->suiv;
+    }*/
+	
+	//x = 8 et y = 7
+	//printf("%d", unite->genre);
 	afficherPlateau(monde);
 	
-	printf("%d\n", monde.plateau[LONG][LARG]);
-	printf("%c", unite.couleur);
+	/*Unite* cur;
+	while(cur!=NULL){
+		printf("ok");
+		cur = cur->suiv;
+	}*/
+	
+	/*for(cur=liste ; cur!=NULL ; cur = cur->suiv) {
+		printf("%c ", cur->genre);
+		printf("ok ");
+	}*/
+	
+    // Marchera pas : ça dépasse des bords du tableau
+    // Par contre, LONG-1 et LARG-1 c'est OK :)
+	// printf("%d\n", monde.plateau[LONG][LARG]);
+
+	//printf("%c", unite.genre);
+	
+	//2 guerrier et 4 serfs 
 	
 	//Placement d'une unité
 	/*printf("Joueur Rouge, rentrez vos unités !\n");
