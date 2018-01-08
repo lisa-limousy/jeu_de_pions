@@ -10,54 +10,48 @@ int main(void){
 	//UListe *toutesU = NULL;
 	
 	Monde monde;
-	UListe liste = NULL;
+	UListe unite = NULL;
 	
     initializerMonde(&monde);
 	
 	//création de tous les pions - 2 GUERRIER et 4 SERF
 	
-	creerUnite(SERF, &liste);
-	placerAuMonde(liste, &monde, 8, 7, BLEU);
-	creerUnite(SERF, &liste);
-	placerAuMonde(liste, &monde, 1, 1, ROUGE);
-	creerUnite(GUERRIER, &liste);
-	placerAuMonde(liste, &monde, 2, 1, ROUGE);
+	creerUnite(SERF, &unite);
+	placerAuMonde(unite, &monde, 7, 1, BLEU);
+	//affiche TOUTES les unités
+	creerUnite(SERF, &unite);
+	placerAuMonde(unite, &monde, 4, 6, BLEU);
+	creerUnite(SERF, &unite);
+	placerAuMonde(unite, &monde, 8, 4, ROUGE);
+	creerUnite(SERF, &unite);
+	placerAuMonde(unite, &monde, 8, 7, ROUGE);
+	creerUnite(GUERRIER, &unite);
+	placerAuMonde(unite, &monde, 1, 2, BLEU);
+	creerUnite(GUERRIER, &unite);
+	placerAuMonde(unite, &monde, 2, 2, ROUGE);
 	
-	//boucle pour tester le chainage qui fonctionne à l'envers
-	/*while(liste!=NULL){
-        printf("%c", liste->genre);
-        liste = liste->suiv;
-    }*/
-	
-	//x = 8 et y = 7
-	//printf("%d", unite->genre);
+	//deplacerUnite(unite, monde, 7, 7);
 	afficherPlateau(monde);
 	
-	/*Unite* cur;
-	while(cur!=NULL){
-		printf("ok");
-		cur = cur->suiv;
-	}*/
+	printf("TOUTES unites : ");
+	while(unite!=NULL){
+		printf("%c ", unite->genre);
+		unite = unite->suiv;
+	}
+	printf("\n");
+	//affiche liste unités rouge
+	printf("Unites ROUGE : ");
+	while(monde.rouge!=NULL){
+		printf("%c ", monde.rouge->genre);
+		monde.rouge = monde.rouge->suiv;
+	}
+	printf("\n");
 	
-	/*for(cur=liste ; cur!=NULL ; cur = cur->suiv) {
-		printf("%c ", cur->genre);
-		printf("ok ");
-	}*/
-	
-    // Marchera pas : ça dépasse des bords du tableau
-    // Par contre, LONG-1 et LARG-1 c'est OK :)
-	// printf("%d\n", monde.plateau[LONG][LARG]);
-
-	//printf("%c", unite.genre);
-	
-	//2 guerrier et 4 serfs 
-	
-	//Placement d'une unité
-	/*printf("Joueur Rouge, rentrez vos unités !\n");
-	printf("Colonne (entre 1 et 12) de votre guerrier : ");
-	scanf("%d", posX);
-	printf("Ligne (entre 1 et 18) de votre guerrier : ");
-	scanf("%d", posY);*/
+	printf("Unites BLEU : ");
+	while(monde.bleu!=NULL){
+		printf("%c ", monde.bleu->genre);
+		monde.bleu = monde.bleu->suiv;
+	}
 	
     return 0;
 }
