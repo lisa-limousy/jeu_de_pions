@@ -14,54 +14,52 @@ void initializerMonde(Monde *monde){
         }
     }
     monde->tour = 0;
+	monde->bleu = NULL;
     monde->rouge = NULL;
-    monde->bleu = NULL;
 }
 //remplacer liste par unite
-void creerUnite(char type, UListe *unite) {   
+int creerUnite(char type, UListe *unite) {   
 	
-	if(*unite == NULL){
-    	Unite* u1 = malloc(sizeof(Unite)); 
-		u1->genre = type; 
-		u1->suiv=NULL;
-    	*unite = u1;
+	Unite *u = malloc(sizeof(Unite));
+	
+	if (u == NULL){
+		return 0;
 	}
-	else{
-		Unite* u = malloc(sizeof(Unite)); 
-		u->genre = type; 
+	
+	else {
+		u->genre = type;
 		u->suiv = *unite;
 		*unite = u;
+		return 1;
 	}
 }
 
+
+
 int placerAuMonde(Unite *unite, Monde *monde, int posX, int posY, char couleur){
-	unite->posX = posX;
-	unite->posY = posY;
-	unite->couleur = couleur;
-	//ajouter l'unite à son joueur dans la liste chainée correspondante
-	if(couleur == ROUGE){
-		if(monde->rouge == NULL){
-			monde->rouge = unite;
-			monde->rouge->suiv = NULL;
-		}
-		else{
-			monde->rouge->suiv = unite;
-			monde->rouge->suiv->suiv = NULL;
-		}
-	}
-	if(couleur == BLEU){
-		if(monde->bleu == NULL){
+	
+	/*Si la case est libre*/
+	if(monde->plateau[posX][posY] == NULL) {
+		monde->plateau[posX][posY] = unite;
+		unite->couleur = couleur;
+		unite->posX = posX;
+		unite->posY = posY;
+		
+		if(couleur == BLEU) {
+			unite->suiv = monde->bleu;
 			monde->bleu = unite;
-			monde->bleu->suiv = NULL;
 		}
-		else{
-			monde->bleu->suiv = unite;
-			monde->bleu->suiv->suiv = NULL;
+		else if(couleur == ROUGE) {
+			unite->suiv = monde->rouge;
+			monde->rouge = unite;
 		}
+		return 1;
 	}
 	
-	monde->plateau[posY][posX] = unite;
-    return 1; // Elle doit renvoyer quoi cette fonction ?
+	/* Si la case n'est pas vide */
+	else {
+		return 0;
+	}
 }
 
 void ligne(){

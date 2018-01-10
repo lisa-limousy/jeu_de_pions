@@ -4,10 +4,9 @@
 #include <string.h>
 
 #include "init.h"
+#include "play.h"
 
-int main(void){
-   
-	//UListe *toutesU = NULL;
+int main(){
 	
 	Monde monde;
 	UListe unite = NULL;
@@ -17,29 +16,24 @@ int main(void){
 	//création de tous les pions - 2 GUERRIER et 4 SERF
 	
 	creerUnite(SERF, &unite);
-	placerAuMonde(unite, &monde, 7, 1, BLEU);
-	//affiche TOUTES les unités
-	creerUnite(SERF, &unite);
-	placerAuMonde(unite, &monde, 4, 6, BLEU);
-	creerUnite(SERF, &unite);
-	placerAuMonde(unite, &monde, 8, 4, ROUGE);
-	creerUnite(SERF, &unite);
-	placerAuMonde(unite, &monde, 8, 7, ROUGE);
+	placerAuMonde(unite, &monde, 1, 1, BLEU);
 	creerUnite(GUERRIER, &unite);
-	placerAuMonde(unite, &monde, 1, 2, BLEU);
+	placerAuMonde(unite, &monde, 1, 2, ROUGE);
 	creerUnite(GUERRIER, &unite);
-	placerAuMonde(unite, &monde, 2, 2, ROUGE);
+	placerAuMonde(unite, &monde, 1, 3, BLEU);
+	creerUnite(SERF, &unite);
+	placerAuMonde(unite, &monde, 1, 17, BLEU);
+	creerUnite(SERF, &unite);
+	placerAuMonde(unite, &monde, 1, 5, ROUGE);
+	creerUnite(SERF, &unite);
+	placerAuMonde(unite, &monde, 1, 6, ROUGE);
 	
-	//deplacerUnite(unite, monde, 7, 7);
 	afficherPlateau(monde);
 	
-	printf("TOUTES unites : ");
-	while(unite!=NULL){
-		printf("%c ", unite->genre);
-		unite = unite->suiv;
-	}
-	printf("\n");
-	//affiche liste unités rouge
+	deplacerUnite((monde.bleu), &monde, 2, 18);
+	
+	afficherPlateau(monde);
+
 	printf("Unites ROUGE : ");
 	while(monde.rouge!=NULL){
 		printf("%c ", monde.rouge->genre);
@@ -52,6 +46,7 @@ int main(void){
 		printf("%c ", monde.bleu->genre);
 		monde.bleu = monde.bleu->suiv;
 	}
+	printf("\n");
 	
     return 0;
 }
