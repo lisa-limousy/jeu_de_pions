@@ -27,56 +27,97 @@ void deplacerUnite(Unite *unite, Monde *monde, int destX, int destY){
 	}
 }
 
-// fonctionne qu'avec le premier élément créé dans le main
-// ne supprime pas l'unité dans la liste 
-
 void enleverUnite(Unite *unite, Monde *monde){
-	monde->plateau[unite->posY][unite->posX] = NULL;
-	free(unite);
+	
+	monde->plateau[unite->posX][unite->posY] = NULL;
+	
+	Unite *actuel, *precedent;
+	
+	if(unite->couleur == BLEU){
+		actuel = monde->bleu;
+		precedent = NULL;
+	
+		while ( actuel != NULL ) {
+			if ( actuel == unite ) {
+				if ( actuel->suiv == NULL ) {
+					precedent->suiv = NULL;
+				} 
+				else {
+					precedent->suiv = actuel->suiv;
+				}
+			}		
+			precedent = actuel;
+			actuel = actuel->suiv;
+		}
+	}
+	
+	else {
+		actuel = monde->rouge;
+		precedent = NULL;
+		
+		while ( actuel != NULL ) {
+			if ( actuel == unite ) {
+				if ( actuel->suiv == NULL ) {
+					precedent->suiv = NULL;
+				} 
+				else {
+					precedent->suiv = actuel->suiv;
+				}
+			}		
+			precedent = actuel;
+			actuel = actuel->suiv;
+		}
+	}
 }
 
 // à tester dès que les problèmes sont reglé avec enleverUnite
 
 int attaquer(Unite *unite, Monde *monde, int destX, int destY){
-	if(unite->genre == GUERRIER && monde->plateau[destY][destX]->genre == SERF){
-		enleverUnite(unite, monde);
+
+	Unite *adversaire = monde->plateau[destX][destY];
+	
+	if(unite->genre == GUERRIER && adversaire->genre == SERF){
+		enleverUnite(adversaire, monde);
 		return 1;
 	}
 
-	if(unite->genre == GUERRIER && monde->plateau[destY][destX]->genre == GUERRIER){
-		enleverUnite(unite, monde);
+	if(unite->genre == GUERRIER && adversaire->genre == GUERRIER){
+		enleverUnite(adversaire, monde);
 		return 1;
 	}
 
-	if(unite->genre == SERF && monde->plateau[destY][destX]->genre == SERF){
-		enleverUnite(unite, monde);
+	if(unite->genre == SERF && adversaire->genre == SERF){
+		enleverUnite(adversaire, monde);
 		return 1;
 	}
 
-	if(unite->genre == SERF && monde->plateau[destY][destX]->genre == GUERRIER){
+	if(unite->genre == SERF && adversaire->genre == GUERRIER){
 		enleverUnite(unite, monde);
 		return 0;
 	}
 	return 0;
 }
 
-/*int deplacerOuAttaquer(Unite *unite, Monde *monde, int destX, int destY){
-	if(destY > 17 || destY <0 || destX > 11 || destX <0){
+int deplacerOuAttaquer(Unite *unite, Monde *monde, int destX, int destY){
+	//LONG 12 x lignes
+	//LARG 18 y colonnes
+	
+	if(destY > LARG-1 || destY < 0 || destX > LONG-1 || destX < 0){
 		return -1;
 	}
-	if( (unite->posX) < destX -1 || (unite->posX) > destX +1 || (unite->posY) < destY -1 || (unite->posY) > destY +1 ){
+	if( (unite->posX) < destX -1 || (unite->posX) > destX +1 || (unite->posY) < destY -1 || (unite->posY) > destY +1 )	{
 		return -2;
 	}
 	if(monde->plateau[destY][destX] != NULL && monde->plateau[destY][destX]->couleur == unite->couleur){
 		return -3;
 	}
-	if(){
-		deplacerUnite(unite , monde, destX, destY);
+	if(monde->plateau[destY][destX] != NULL){
+		deplacerUnite(unite, monde, destX, destY);
 		return 1;
 	}
-	if(){
-		attaquer(unite , monde, destX, destY);
-		if(attaquer(unite , monde, destX, destY) == 1){
+	if(monde->plateau[destY][destX]->couleur != unite->couleur){
+		attaquer(unite, monde, destX, destY);
+		if(attaquer(unite, monde, destX, destY) == 1){
 			return 2;
 		}
 		else {
@@ -84,7 +125,4 @@ int attaquer(Unite *unite, Monde *monde, int destX, int destY){
 		}
 	}
 	return 0;
-}*/
-
-//LONG y colonnes
-//LARG x lignes
+}

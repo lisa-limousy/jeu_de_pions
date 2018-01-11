@@ -17,7 +17,7 @@ void initializerMonde(Monde *monde){
 	monde->bleu = NULL;
     monde->rouge = NULL;
 }
-//remplacer liste par unite
+
 int creerUnite(char type, UListe *unite) {   
 	
 	Unite *u = malloc(sizeof(Unite));
@@ -28,7 +28,9 @@ int creerUnite(char type, UListe *unite) {
 	
 	else {
 		u->genre = type;
+		//le dernier élément de la liste pointe sur notre élément
 		u->suiv = *unite;
+		// on place u dans la mémoire alloué
 		*unite = u;
 		return 1;
 	}

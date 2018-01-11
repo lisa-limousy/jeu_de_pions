@@ -15,26 +15,31 @@ int main(){
 	
 	//création de tous les pions - 2 GUERRIER et 4 SERF
 	
-	creerUnite(SERF, &unite);
-	placerAuMonde(unite, &monde, 1, 1, ROUGE);
 	creerUnite(GUERRIER, &unite);
-	placerAuMonde(unite, &monde, 1, 2, BLEU);
-	creerUnite(GUERRIER, &unite);
-	placerAuMonde(unite, &monde, 1, 3, BLEU);
+	placerAuMonde(unite, &monde, 2, 5, ROUGE);
+	//(monde.rouge)->suiv->suiv
 	creerUnite(SERF, &unite);
+	placerAuMonde(unite, &monde, 1, 2, ROUGE);
+	//(monde.rouge)->suiv
+	creerUnite(GUERRIER, &unite);
+	placerAuMonde(unite, &monde, 1, 3, ROUGE);
+	//(monde.rouge)
+	creerUnite(GUERRIER, &unite);
 	placerAuMonde(unite, &monde, 1, 4, BLEU);
+	//(monde.bleu)->suiv->suiv
 	creerUnite(SERF, &unite);
-	placerAuMonde(unite, &monde, 1, 5, ROUGE);
+	placerAuMonde(unite, &monde, 1, 5, BLEU);
+	//(monde.bleu)->suiv
 	creerUnite(SERF, &unite);
-	placerAuMonde(unite, &monde, 1, 6, ROUGE);
+	placerAuMonde(unite, &monde, 1, 6, BLEU);
+	//(monde.bleu)
 	
 	afficherPlateau(monde);
 	
-	//deplacerUnite((monde.bleu)->suiv, &monde, 2, 4);
+	//deplacerUnite((monde.rouge)->suiv->suiv, &monde, 2, 1);
+	//enleverUnite((monde.rouge)->suiv, &monde);
 	
-	//fonctionne qu'avec le premier élément créé
-	enleverUnite((monde.rouge)->suiv->suiv, &monde);
-	
+	attaquer((monde.rouge)->suiv->suiv, &monde, 1, 4);
 	afficherPlateau(monde);
 
 	printf("Unites ROUGE : ");
