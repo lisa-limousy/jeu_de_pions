@@ -16,13 +16,13 @@ int main(){
 	//création de tous les pions - 2 GUERRIER et 4 SERF
 	
 	creerUnite(SERF, &unite);
-	placerAuMonde(unite, &monde, 1, 1, BLEU);
+	placerAuMonde(unite, &monde, 1, 1, ROUGE);
 	creerUnite(GUERRIER, &unite);
-	placerAuMonde(unite, &monde, 1, 2, ROUGE);
+	placerAuMonde(unite, &monde, 1, 2, BLEU);
 	creerUnite(GUERRIER, &unite);
 	placerAuMonde(unite, &monde, 1, 3, BLEU);
 	creerUnite(SERF, &unite);
-	placerAuMonde(unite, &monde, 1, 17, BLEU);
+	placerAuMonde(unite, &monde, 1, 4, BLEU);
 	creerUnite(SERF, &unite);
 	placerAuMonde(unite, &monde, 1, 5, ROUGE);
 	creerUnite(SERF, &unite);
@@ -30,7 +30,10 @@ int main(){
 	
 	afficherPlateau(monde);
 	
-	deplacerUnite((monde.bleu), &monde, 2, 18);
+	//deplacerUnite((monde.bleu)->suiv, &monde, 2, 4);
+	
+	//fonctionne qu'avec le premier élément créé
+	enleverUnite((monde.rouge)->suiv->suiv, &monde);
 	
 	afficherPlateau(monde);
 
