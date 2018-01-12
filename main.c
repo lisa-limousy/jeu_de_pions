@@ -5,6 +5,7 @@
 
 #include "init.h"
 #include "play.h"
+#include "gestion.h"
 
 int main(){
 	
@@ -15,8 +16,8 @@ int main(){
 	
 	//création de tous les pions - 2 GUERRIER et 4 SERF
 	
-	creerUnite(GUERRIER, &unite);
-	placerAuMonde(unite, &monde, 2, 5, ROUGE);
+	creerUnite(SERF, &unite);
+	placerAuMonde(unite, &monde, 1, 1, ROUGE);
 	//(monde.rouge)->suiv->suiv
 	creerUnite(SERF, &unite);
 	placerAuMonde(unite, &monde, 1, 2, ROUGE);
@@ -34,15 +35,18 @@ int main(){
 	placerAuMonde(unite, &monde, 1, 6, BLEU);
 	//(monde.bleu)
 	
-	afficherPlateau(monde);
+	//deplacerUnite((monde.rouge)->suiv->suiv, &monde, 1, 4);
+	//enleverUnite((monde.bleu)->suiv->suiv, &monde);
 	
-	//deplacerUnite((monde.rouge)->suiv->suiv, &monde, 2, 1);
-	//enleverUnite((monde.rouge)->suiv, &monde);
-	
-	attaquer((monde.rouge)->suiv->suiv, &monde, 1, 4);
-	afficherPlateau(monde);
-
-	printf("Unites ROUGE : ");
+	//attaquer((monde.rouge)->suiv, &monde, 1, 3);
+    
+    //int result = deplacerOuAttaquer((monde.bleu)->suiv->suiv, &monde, 1, 3);
+    
+    //printf("%d \n", result);
+    gererDemiTour(BLEU, &monde);
+    
+	printf("\n");
+    printf("Unites ROUGE : ");
 	while(monde.rouge!=NULL){
 		printf("%c ", monde.rouge->genre);
 		monde.rouge = monde.rouge->suiv;

@@ -73,7 +73,8 @@ void ligne(){
 }
 
 void afficherPlateau(Monde monde){
-	printf("   0    1    2    3    4    5    6    7    8    9   10   11   12   13   14   15   16   17\n");
+	printf("\n");
+    printf("   0    1    2    3    4    5    6    7    8    9   10   11   12   13   14   15   16   17\n");
 	int x, y;
 	//colonnes
 	for (y = 0; y < LONG; y++){
@@ -90,4 +91,5 @@ void afficherPlateau(Monde monde){
         printf("| %d \n", y);
 	}
 	ligne();
+	printf("\n");
 }

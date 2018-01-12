@@ -7,19 +7,19 @@
 #include "play.h"
 
 void deplacerUnite(Unite *unite, Monde *monde, int destX, int destY){
-	
-	//si la valeur est déjà occupé, reste à sa place
-	
-	
+
 	if((unite->posX == destX || unite->posX == destX+1 || unite->posX == destX-1) && (unite->posY == destY || unite->posY == destY+1 || unite->posY == destY-1)){
 		if(destY < LARG && destX >= 0 && destY >= 0 && destX < LONG){
-			if(monde->plateau[destX][destY] == NULL) {
-			monde->plateau[unite->posX][unite->posY] = NULL;
-			monde->plateau[destX][destY] = unite;
-			unite->posX = destX;
-			unite->posY = destY;
+			 if(monde->plateau[destX][destY] == NULL) {
+                 monde->plateau[unite->posX][unite->posY] = NULL;
+			     monde->plateau[destX][destY] = unite;
+			     unite->posX = destX;
+			     unite->posY = destY;
 			
 			}
+            else {
+                printf("La case est occupee\n");
+            }
 		}
 		else {
 			printf("Erreur, retentez avec une valeur valide");
@@ -32,45 +32,37 @@ void enleverUnite(Unite *unite, Monde *monde){
 	monde->plateau[unite->posX][unite->posY] = NULL;
 	
 	Unite *actuel, *precedent;
+    precedent = NULL;
 	
 	if(unite->couleur == BLEU){
 		actuel = monde->bleu;
-		precedent = NULL;
-	
-		while ( actuel != NULL ) {
-			if ( actuel == unite ) {
-				if ( actuel->suiv == NULL ) {
-					precedent->suiv = NULL;
-				} 
-				else {
-					precedent->suiv = actuel->suiv;
-				}
-			}		
-			precedent = actuel;
-			actuel = actuel->suiv;
-		}
-	}
-	
-	else {
-		actuel = monde->rouge;
-		precedent = NULL;
-		
-		while ( actuel != NULL ) {
-			if ( actuel == unite ) {
-				if ( actuel->suiv == NULL ) {
-					precedent->suiv = NULL;
-				} 
-				else {
-					precedent->suiv = actuel->suiv;
-				}
-			}		
-			precedent = actuel;
-			actuel = actuel->suiv;
-		}
-	}
+    }
+    else {
+        actuel = monde->rouge;
+    }
+    
+    while ( actuel != NULL ) {
+        if ( actuel == unite ) {
+            if ( actuel->suiv == NULL ) {
+                precedent->suiv = NULL;
+            } 
+			else if(precedent != NULL){
+                precedent->suiv = actuel->suiv;                    
+            }
+            //if precedent == NULL
+            else {
+                if(unite->couleur == BLEU){
+                    monde->bleu = actuel->suiv;
+                }
+                else {
+                    monde->rouge = actuel->suiv;
+                }
+			}
+        }		
+		precedent = actuel;
+		actuel = actuel->suiv;
+    }
 }
-
-// à tester dès que les problèmes sont reglé avec enleverUnite
 
 int attaquer(Unite *unite, Monde *monde, int destX, int destY){
 
@@ -97,32 +89,45 @@ int attaquer(Unite *unite, Monde *monde, int destX, int destY){
 	}
 	return 0;
 }
-
+	
 int deplacerOuAttaquer(Unite *unite, Monde *monde, int destX, int destY){
 	//LONG 12 x lignes
 	//LARG 18 y colonnes
+    //Unite *adversaire = monde->plateau[destX][destY];
+    
+    //int resultAttaque;
+    //resultAttaque = attaquer(unite, monde, destX, destY);
 	
 	if(destY > LARG-1 || destY < 0 || destX > LONG-1 || destX < 0){
-		return -1;
+		printf("\n");
+        printf("Vous etes hors du plateau. \n");
+        return -1;
 	}
 	if( (unite->posX) < destX -1 || (unite->posX) > destX +1 || (unite->posY) < destY -1 || (unite->posY) > destY +1 )	{
-		return -2;
+        printf("\n");
+		printf("Vous ne pouvez avancer que d'une case. \n");
+        return -2;
 	}
-	if(monde->plateau[destY][destX] != NULL && monde->plateau[destY][destX]->couleur == unite->couleur){
+
+
+	if(monde->plateau[destX][destY] != NULL && monde->plateau[destX][destY]->couleur == unite->couleur){
+        printf("\n");
+        printf("C'est un de vos pions ! \n");
 		return -3;
 	}
-	if(monde->plateau[destY][destX] != NULL){
+
+	if(monde->plateau[destX][destY] == NULL){
 		deplacerUnite(unite, monde, destX, destY);
 		return 1;
 	}
-	if(monde->plateau[destY][destX]->couleur != unite->couleur){
-		attaquer(unite, monde, destX, destY);
+    
+	if(monde->plateau[destX][destY]->couleur != unite->couleur){
 		if(attaquer(unite, monde, destX, destY) == 1){
 			return 2;
 		}
-		else {
-			return 3;
-		}
+        else{
+            return 3;
+        }
 	}
 	return 0;
 }

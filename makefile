@@ -1,15 +1,18 @@
 all: game
 
-game: init.o main.o
-	gcc -g $^ -o $@ -lm
-	@echo Compilation finie
+game: main.o init.o play.o gestion.o
+	gcc main.o init.o play.o gestion.o
 	
-%.o: %.c
-	gcc -g -o $@ -c -Wall $<
+main.o: main.c init.h play.h
+	gcc -c main.c -Wall
 
-clean:
-	rm -rf *.o
+init.o: init.c init.h
+	gcc -c init.c -Wall
 
-mrproper: clean all
+play.o: play.c init.h play.h
+	gcc -c play.c -Wall
+    
+gestion.o: gestion.c init.h play.h gestion.h
+	gcc -c gestion.c -Wall
 
-re: mrproper
+
