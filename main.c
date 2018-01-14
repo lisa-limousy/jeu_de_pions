@@ -9,56 +9,22 @@
 
 int main(){
 	
-	Monde monde;
-	UListe unite = NULL;
-	
-    initializerMonde(&monde);
-	
-	//création de tous les pions - 2 GUERRIER et 4 SERF
-	
-	creerUnite(SERF, &unite);
-	placerAuMonde(unite, &monde, 1, 1, ROUGE);
-	//(monde.rouge)->suiv->suiv
-	creerUnite(SERF, &unite);
-	placerAuMonde(unite, &monde, 1, 2, ROUGE);
-	//(monde.rouge)->suiv
-	creerUnite(GUERRIER, &unite);
-	placerAuMonde(unite, &monde, 1, 3, ROUGE);
-	//(monde.rouge)
-	creerUnite(GUERRIER, &unite);
-	placerAuMonde(unite, &monde, 1, 4, BLEU);
-	//(monde.bleu)->suiv->suiv
-	creerUnite(SERF, &unite);
-	placerAuMonde(unite, &monde, 1, 5, BLEU);
-	//(monde.bleu)->suiv
-	creerUnite(SERF, &unite);
-	placerAuMonde(unite, &monde, 1, 6, BLEU);
-	//(monde.bleu)
-	
-	//deplacerUnite((monde.rouge)->suiv->suiv, &monde, 1, 4);
-	//enleverUnite((monde.bleu)->suiv->suiv, &monde);
-	
-	//attaquer((monde.rouge)->suiv, &monde, 1, 3);
-    
-    //int result = deplacerOuAttaquer((monde.bleu)->suiv->suiv, &monde, 1, 3);
-    
-    //printf("%d \n", result);
-    gererDemiTour(BLEU, &monde);
-    
 	printf("\n");
-    printf("Unites ROUGE : ");
-	while(monde.rouge!=NULL){
-		printf("%c ", monde.rouge->genre);
-		monde.rouge = monde.rouge->suiv;
-	}
-	printf("\n");
+		printf("______________________________________________________________________________________________");
+		printf("\n \n");
+		printf("                                BIENVENUE DANS CE JEU DE PIONS ! \n");
+		printf("______________________________________________________________________________________________");
+		printf("\n \n");
+		printf("2 jours (rouge et bleu) s'affronte dans un combat. Chacun detient 1 guerrier et 2 serfs.\n");
+		printf("Ces unites peuvent se deplacer d'une case dans n'importe quelle direction.\n");
+		printf("Si la case est occupee par une unite du joueur adverse, le pion peut l'attaquer\n");
+		printf("Un guerrier gagne sur un serf et si les deux unites sont du meme type, c'est l'attaquant qui gagne.\n");
+		printf("\n \n");
+		printf("                                BONNE CHANCE ! \n");
+		printf("\n \n");
 	
-	printf("Unites BLEU : ");
-	while(monde.bleu!=NULL){
-		printf("%c ", monde.bleu->genre);
-		monde.bleu = monde.bleu->suiv;
-	}
-	printf("\n");
+		gererPartie();
+
 	
     return 0;
 }

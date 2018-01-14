@@ -18,10 +18,12 @@ void deplacerUnite(Unite *unite, Monde *monde, int destX, int destY){
 			
 			}
             else {
+				printf("\n");
                 printf("La case est occupee\n");
             }
 		}
 		else {
+			printf("\n");
 			printf("Erreur, retentez avec une valeur valide");
 		}	
 	}

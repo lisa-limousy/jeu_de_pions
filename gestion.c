@@ -7,10 +7,28 @@
 #include "play.h"
 #include "gestion.h"
 
+
+void afficheListeJoueur(Monde *monde){
+	printf("\n");
+    printf("Unites ROUGE : ");
+	while(monde->rouge!=NULL){
+		printf("%c ", monde->rouge->genre);
+		monde->rouge = monde->rouge->suiv;
+	}
+	printf("\n");
+	
+	printf("Unites BLEU : ");
+	while(monde->bleu!=NULL){
+		printf("%c ", monde->bleu->genre);
+		monde->bleu = monde->bleu->suiv;
+	}
+	printf("\n");
+}
 void gererDemiTour(char joueur, Monde *monde){
     
     Unite *unite = NULL;
-    int result, ligne, colonne, reponse;
+    int result, ligne, colonne; 
+	char reponse = ' ';
     
     if(joueur == ROUGE){
         unite = monde->rouge;
@@ -82,27 +100,72 @@ void gererDemiTour(char joueur, Monde *monde){
         default: 
             printf("\n");
             printf("Tu n'as pas rentre de valeur adequate !\n");
+			printf("\n");
     }
     
-    // switch as tu fini ? o/n avec un while(result != o)
-    // boucle infini
+    // bug -> "as-tu fini" s'affiche deux fois
     
-    printf("As-tu fini de jouer ? \n");
-	printf("1 - Oui\n");
-	printf("2 - Non\n");
-    scanf("%d", &reponse);
-    
-	switch(reponse) {
-        case 1 : 
-            printf("Vous avez fini votre tour ! \n");
-            break;
-        
-        case 2 : 
-			printf("Tu ne peux pas rejouer, tu as donc fini, desole...");
-			break;
-			
-		default: 
-			printf("La valeur n'est pas valide. \n");
-
+    while (reponse != 'o') {
+		printf("As-tu fini de jouer ? (o/n) ");
+		printf("\n");
+    	scanf("%c", &reponse);
 	}
+	
+}
+
+void gererTour(Monde *monde){
+	
+	monde->tour = 1;
+	while(monde->rouge != NULL || monde->bleu != NULL){
+		printf("\n");
+		printf("______________________________________________________________________________________________");
+		printf("\n \n");
+		printf("                                C'EST LE TOUR %d DU JOUEUR ROUGE ! \n", monde->tour);
+		printf("______________________________________________________________________________________________");
+		printf("\n \n");
+		gererDemiTour(ROUGE, monde);
+		printf("______________________________________________________________________________________________");
+		printf("\n \n");
+		printf("                                C'EST LE TOUR %d DU JOUEUR BLEU ! \n", monde->tour);
+		printf("______________________________________________________________________________________________");
+		printf("\n \n");
+		gererDemiTour(BLEU, monde);
+		(monde->tour)++;
+	}
+}
+
+void viderMonde(Monde *monde){
+	initializerMonde(monde);
+	free(monde->rouge);
+	free(monde->bleu);
+}
+
+void gererPartie(void){
+	
+	Monde monde;
+	UListe unite = NULL;
+	
+	initializerMonde(&monde);
+	
+	creerUnite(SERF, &unite);
+	placerAuMonde(unite, &monde, 1, 1, ROUGE);
+	//(monde.rouge)->suiv->suiv
+	creerUnite(SERF, &unite);
+	placerAuMonde(unite, &monde, 1, 2, ROUGE);
+	//(monde.rouge)->suiv
+	creerUnite(GUERRIER, &unite);
+	placerAuMonde(unite, &monde, 1, 3, ROUGE);
+	//(monde.rouge)
+	creerUnite(GUERRIER, &unite);
+	placerAuMonde(unite, &monde, 1, 4, BLEU);
+	//(monde.bleu)->suiv->suiv
+	creerUnite(SERF, &unite);
+	placerAuMonde(unite, &monde, 1, 5, BLEU);
+	//(monde.bleu)->suiv
+	creerUnite(SERF, &unite);
+	placerAuMonde(unite, &monde, 1, 6, BLEU);
+	//(monde.bleu)
+	
+	gererTour(&monde);
+	
 }
