@@ -5,6 +5,7 @@
 
 #include "init.h"
 #include "play.h"
+#include "gestion.h"
 
 void deplacerUnite(Unite *unite, Monde *monde, int destX, int destY){
 
@@ -31,10 +32,10 @@ void deplacerUnite(Unite *unite, Monde *monde, int destX, int destY){
 
 void enleverUnite(Unite *unite, Monde *monde){
 	
-	monde->plateau[unite->posX][unite->posY] = NULL;
-	
-	Unite *actuel, *precedent;
+    Unite *actuel, *precedent;
     precedent = NULL;
+	
+    monde->plateau[unite->posX][unite->posY] = NULL;
 	
 	if(unite->couleur == BLEU){
 		actuel = monde->bleu;
@@ -43,27 +44,43 @@ void enleverUnite(Unite *unite, Monde *monde){
         actuel = monde->rouge;
     }
     
-    while ( actuel != NULL ) {
-        if ( actuel == unite ) {
-            if ( actuel->suiv == NULL ) {
-                precedent->suiv = NULL;
-            } 
-			else if(precedent != NULL){
-                precedent->suiv = actuel->suiv;                    
-            }
-            //if precedent == NULL
-            else {
-                if(unite->couleur == BLEU){
-                    monde->bleu = actuel->suiv;
-                }
-                else {
-                    monde->rouge = actuel->suiv;
-                }
-			}
-        }		
-		precedent = actuel;
-		actuel = actuel->suiv;
+    /*C'est le premier de la liste et le seul*/
+    if(actuel == unite && actuel->suiv == NULL){
+        if(unite->couleur == BLEU){
+            monde->bleu = NULL;
+        }
+        else {
+            monde->rouge = NULL;
+        }
+        free (unite);
     }
+    else {
+        while ( actuel != NULL ) {
+            if ( actuel == unite ) {
+                /*if (actuel->suiv != NULL ) {
+                    precedent = actuel;
+                    actuel = actuel->suiv;
+                }*/
+                if(precedent != NULL){
+                    precedent->suiv = actuel->suiv;                    
+                }
+            //if precedent == NULL
+                else {
+                    if(unite->couleur == BLEU){
+                        monde->bleu = actuel->suiv;
+                    }
+                    else {
+                        monde->rouge = actuel->suiv;
+                    }
+                }
+            }		
+            precedent = actuel;
+            actuel = actuel->suiv;
+        }
+    
+        free (unite);
+    }
+        
 }
 
 int attaquer(Unite *unite, Monde *monde, int destX, int destY){
@@ -132,4 +149,72 @@ int deplacerOuAttaquer(Unite *unite, Monde *monde, int destX, int destY){
         }
 	}
 	return 0;
+}
+
+void placerUnite(Unite *unite, Monde *monde){
+    int colonne, ligne, i;
+    
+    printf("Joueur ROUGE, ou veux-tu placer ton guerrier ? \n\n");
+    printf("Colonne ? (entre 0 et 17) : ");
+    scanf("%d", &colonne);
+    printf("Ligne ? (entre 0 et 11) : ");
+    scanf("%d", &ligne);
+    creerUnite(GUERRIER, &unite);
+	placerAuMonde(unite, monde, ligne, colonne, ROUGE);
+    afficherPlateau(*monde);
+    
+    printf("Joueur BLEU, ou veux-tu placer ton guerrier ? \n\n");
+    printf("Colonne ? (entre 0 et 17) : ");
+    scanf("%d", &colonne);
+    printf("Ligne ? (entre 0 et 11) : ");
+    scanf("%d", &ligne);
+    creerUnite(GUERRIER, &unite);
+	placerAuMonde(unite, monde, ligne, colonne, BLEU);
+    afficherPlateau(*monde);
+    
+    for (i=0 ; i<2 ; i++){
+        printf("Joueur ROUGE, ou veux-tu placer ton serf ? \n\n");
+        printf("Colonne ? (entre 0 et 17) : ");
+        scanf("%d", &colonne);
+        printf("Ligne ? (entre 0 et 11) : ");
+        scanf("%d", &ligne);
+        creerUnite(SERF, &unite);
+	    placerAuMonde(unite, monde, ligne, colonne, ROUGE);
+        afficherPlateau(*monde);
+    
+        printf("Joueur BLEU, ou veux-tu placer ton serf ? \n\n");
+        printf("Colonne ? (entre 0 et 17) : ");
+        scanf("%d", &colonne);
+        printf("Ligne ? (entre 0 et 11) : ");
+        scanf("%d", &ligne);
+        creerUnite(SERF, &unite);
+	    placerAuMonde(unite, monde, ligne, colonne, BLEU);
+        afficherPlateau(*monde);
+    }
+    
+
+}
+
+void resultat(Unite *unite, Monde monde){
+    
+    if (monde.rouge == NULL){
+        
+        printf("______________________________________________________________________________________________");
+	printf("\n \n");
+	printf("                                LE JOUEUR BLEU A GAGNE ! \n");
+		  printf("______________________________________________________________________________________________");
+	printf("\n \n");
+        
+    }
+    
+    else {
+        
+        printf("______________________________________________________________________________________________");
+	printf("\n \n");
+	printf("                                LE JOUEUR ROUGE A GAGNE ! \n");
+		  printf("______________________________________________________________________________________________");
+	printf("\n \n");
+
+    }
+    
 }

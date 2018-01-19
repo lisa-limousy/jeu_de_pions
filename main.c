@@ -9,6 +9,8 @@
 
 int main(){
 	
+	
+	
 	printf("\n");
 		printf("______________________________________________________________________________________________");
 		printf("\n \n");
@@ -22,6 +24,7 @@ int main(){
 		printf("\n \n");
 		printf("                                BONNE CHANCE ! \n");
 		printf("\n \n");
+        
 	
 		gererPartie();
 

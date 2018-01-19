@@ -24,6 +24,7 @@ void afficheListeJoueur(Monde *monde){
 	}
 	printf("\n");
 }
+
 void gererDemiTour(char joueur, Monde *monde){
     
     Unite *unite = NULL;
@@ -38,11 +39,32 @@ void gererDemiTour(char joueur, Monde *monde){
     }
     
     afficherPlateau(*monde);
-    printf("Voici la liste de tes unites : \n");
     
-    printf("1 - Type %c en (%d,%d)\n", unite->genre, unite->posX, unite->posY);
-    printf("2 - Type %c en (%d,%d)\n", unite->suiv->genre, unite->suiv->posX, unite->suiv->posY);
-    printf("3 - Type %c en (%d,%d)\n", unite->suiv->suiv->genre, unite->suiv->suiv->posX, unite->suiv->suiv->posY);
+    if (unite == NULL){
+        printf("C'est fini");
+    }
+    else {
+        printf("Voici la liste de tes unites : \n");
+        printf("1 - Type %c en (%d,%d)\n", unite->genre, unite->posY, unite->posX);
+            
+        if(unite->suiv == NULL) {
+            printf("\n");
+        }
+        else {
+            printf("2 - Type %c en (%d,%d)\n", unite->suiv->genre, unite->suiv->posY, unite->suiv->posX);
+        
+            if(unite->suiv->suiv == NULL){
+                printf("\n");
+            }
+            else {
+                printf("3 - Type %c en (%d,%d)\n", unite->suiv->suiv->genre, unite->suiv->suiv->posY, unite->suiv->suiv->posX);
+            }
+        }
+    
+    
+    
+
+    
     
     printf("\n");
     printf("Laquelle veux-tu utiliser ? ");
@@ -103,6 +125,7 @@ void gererDemiTour(char joueur, Monde *monde){
 			printf("\n");
     }
     
+
     // bug -> "as-tu fini" s'affiche deux fois
     
     while (reponse != 'o') {
@@ -110,28 +133,33 @@ void gererDemiTour(char joueur, Monde *monde){
 		printf("\n");
     	scanf("%c", &reponse);
 	}
-	
+    }
 }
 
 void gererTour(Monde *monde){
 	
 	monde->tour = 1;
-	while(monde->rouge != NULL || monde->bleu != NULL){
-		printf("\n");
+    printf("\n");
+		          printf("______________________________________________________________________________________________");
+	printf("\n \n");
+	printf("                                C'EST LE TOUR %d DU JOUEUR ROUGE ! \n", monde->tour);
+		  printf("______________________________________________________________________________________________");
+	printf("\n \n");
+	gererDemiTour(ROUGE, monde);
+    
+    if (monde->bleu != NULL){
+        printf("______________________________________________________________________________________________");
+	printf("\n \n");
+	printf("                                C'EST LE TOUR %d DU JOUEUR BLEU ! \n", monde->tour);
 		printf("______________________________________________________________________________________________");
-		printf("\n \n");
-		printf("                                C'EST LE TOUR %d DU JOUEUR ROUGE ! \n", monde->tour);
-		printf("______________________________________________________________________________________________");
-		printf("\n \n");
-		gererDemiTour(ROUGE, monde);
-		printf("______________________________________________________________________________________________");
-		printf("\n \n");
-		printf("                                C'EST LE TOUR %d DU JOUEUR BLEU ! \n", monde->tour);
-		printf("______________________________________________________________________________________________");
-		printf("\n \n");
-		gererDemiTour(BLEU, monde);
-		(monde->tour)++;
-	}
+	printf("\n \n");
+	gererDemiTour(BLEU, monde);
+        
+    }
+            
+    
+    (monde->tour)++;
+    
 }
 
 void viderMonde(Monde *monde){
@@ -146,26 +174,15 @@ void gererPartie(void){
 	UListe unite = NULL;
 	
 	initializerMonde(&monde);
-	
-	creerUnite(SERF, &unite);
-	placerAuMonde(unite, &monde, 1, 1, ROUGE);
-	//(monde.rouge)->suiv->suiv
-	creerUnite(SERF, &unite);
-	placerAuMonde(unite, &monde, 1, 2, ROUGE);
-	//(monde.rouge)->suiv
-	creerUnite(GUERRIER, &unite);
-	placerAuMonde(unite, &monde, 1, 3, ROUGE);
-	//(monde.rouge)
-	creerUnite(GUERRIER, &unite);
-	placerAuMonde(unite, &monde, 1, 4, BLEU);
-	//(monde.bleu)->suiv->suiv
-	creerUnite(SERF, &unite);
-	placerAuMonde(unite, &monde, 1, 5, BLEU);
-	//(monde.bleu)->suiv
-	creerUnite(SERF, &unite);
-	placerAuMonde(unite, &monde, 1, 6, BLEU);
-	//(monde.bleu)
-	
-	gererTour(&monde);
+    
+    afficherPlateau(monde);
+    
+    placerUnite(unite, &monde);
+    
+    while (monde.rouge != NULL && monde.bleu != NULL){
+        gererTour(&monde);
+    }
+    
+    resultat(unite, monde);
 	
 }
